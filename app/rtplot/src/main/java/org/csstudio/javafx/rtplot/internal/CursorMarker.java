@@ -141,8 +141,16 @@ class CursorMarker implements Comparable<CursorMarker>
                     if (! units.isEmpty())
                         label += " " + units;
                     final String info = sample.getInfo();
-                    if (info != null  &&  info.length() > 0)
-                        label += " (" + info + ")";
+                    if (info != null  &&  info.length() > 0) {
+                    	String labelInfo = info;
+                        if (info.contains("(")) {
+                            // Must be an enum with labels saved in info
+                            String[] splt = info.split("\t");
+                            if (splt.length > 1) 
+                            	labelInfo = splt[1];
+                            label += " (" + labelInfo + ")";
+                          }
+                    }
                     markers.add(new CursorMarker(cursor_x, axis.getScreenCoord(value), GraphicsUtils.convert(trace.getColor()), label));
                 }
             }

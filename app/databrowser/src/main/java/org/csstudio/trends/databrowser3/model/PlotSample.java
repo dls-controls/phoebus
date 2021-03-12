@@ -206,7 +206,10 @@ public class PlotSample implements PlotDataItem<Instant>
     @Override
     public String getInfo()
     {
-        return info;
+    	if (info != null && info != "")
+    		return info;
+    	else
+    		return this.toString();
     }
 
     @Override
