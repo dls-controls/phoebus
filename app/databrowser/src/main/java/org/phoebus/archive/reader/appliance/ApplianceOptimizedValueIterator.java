@@ -67,8 +67,14 @@ public class ApplianceOptimizedValueIterator extends ApplianceValueIterator {
      */
     @Override
     protected void fetchDataInternal(String pvName) throws ArchiverApplianceException {
-        String optimized = new StringBuilder().append(ApplianceArchiveReaderConstants.OP_OPTIMIZED)
-                .append(requestedPoints).append('(').append(pvName).append(')').toString();
+        Boolean ppOptimizedWithLastSample = AppliancePreferences.ppOptimizedWithLastSample;
+        String optimized;
+        if (ppOptimizedWithLastSample)
+    	    optimized = new StringBuilder().append(ApplianceArchiveReaderConstants.OP_OPTIMIZED_WITH_LAST_SAMPLE)
+    	        .append(requestedPoints).append('(').append(pvName).append(')').toString();
+        else
+    	    optimized = new StringBuilder().append(ApplianceArchiveReaderConstants.OP_OPTIMIZED).append(requestedPoints)
+    	        .append('(').append(pvName).append(')').toString();
         super.fetchDataInternal(optimized);
     }
 
